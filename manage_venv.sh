@@ -1,96 +1,76 @@
 #!/bin/bash
-# ========================================================
-# Project-specific virtual environment manager
-# Handles: setup, activate, deactivate
-# ========================================================
+# ==========================================
+# MVP Semantic Search Setup Script (Conda / Miniforge)
+# ==========================================
 
-# Name of the virtual environment
-VENV_NAME="venv_mvp_semsearch"
+# --------------------------
+# Configuration
+# --------------------------
+ENV_NAME="mvp_semsearch"
+PYTHON_VERSION="3.11"
+PROJECT_DIR="$HOME/Projects/GIT/mvp-semantic-search"
 
-# Python interpreter to use; override by setting PYTHON env var or editing here
-PYTHON=${PYTHON:-python3.10.12}
-
-# require at least python 3.11 for compatibility
-required_major=3
-required_minor=11
-if ! $PYTHON -c "import sys; exit(0 if sys.version_info[:2] >= ($required_major,$required_minor) else 1)"; then
-    echo "Error: $PYTHON must be >=${required_major}.${required_minor}." 1>&2
+# --------------------------
+# 1️⃣ Check Conda / Miniforge
+# --------------------------
+if ! command -v conda &>/dev/null; then
+    echo "❌ Conda/Miniforge not found. Please install it first: https://github.com/conda-forge/miniforge"
     exit 1
 fi
+echo "✅ Conda detected"
 
-# -----------------------------
-# Function: setup
-# -----------------------------
-get_venv_python_version() {
-    if [ -x "$VENV_NAME/bin/python" ]; then
-        "$VENV_NAME/bin/python" -c 'import sys; print("%s.%s"%(sys.version_info.major,sys.version_info.minor))'
-    fi
-}
+# --------------------------
+# 2️⃣ Remove old environment if exists
+# --------------------------
+if conda env list | grep -q "^$ENV_NAME"; then
+    echo "🗑 Removing old environment $ENV_NAME..."
+    conda remove -y -n $ENV_NAME --all
+fi
 
-setup_venv() {
-    if [ -d "$VENV_NAME" ]; then
-        venv_ver=$(get_venv_python_version)
-        echo "Virtual environment '$VENV_NAME' exists (python $venv_ver)."
-        # if version mismatch, recreate
-        desired_ver=$($PYTHON -c 'import sys; print("%s.%s"%(sys.version_info.major,sys.version_info.minor))')
-        if [ "$venv_ver" != "$desired_ver" ]; then
-            echo "Version mismatch: need python $desired_ver but venv has $venv_ver."
-            echo "Removing and recreating venv."
-            rm -rf "$VENV_NAME"
-        fi
-    fi
+# --------------------------
+# 3️⃣ Create new Conda environment
+# --------------------------
+echo "🐍 Creating new Conda environment $ENV_NAME with Python $PYTHON_VERSION..."
+conda create -y -n $ENV_NAME python=$PYTHON_VERSION
 
-    if [ ! -d "$VENV_NAME" ]; then
-        echo "Creating virtual environment '$VENV_NAME' with $PYTHON..."
-        $PYTHON -m venv $VENV_NAME
-        echo "Virtual environment created!"
-    fi
+# --------------------------
+# 4️⃣ Activate environment
+# --------------------------
+echo "🔹 Activating environment..."
+source "$(conda info --base)/etc/profile.d/conda.sh"
+conda activate $ENV_NAME
 
-    echo "Activating '$VENV_NAME'..."
-    source $VENV_NAME/bin/activate
+# --------------------------
+# 5️⃣ Install dependencies
+# --------------------------
+echo "📦 Installing FAISS + dependencies..."
+# FAISS CPU via conda-forge (ensures matching binaries for macOS)
+conda install -y -c conda-forge faiss-cpu numpy
 
-    echo "Upgrading pip and installing dependencies..."
-    $VENV_NAME/bin/python -m pip install --upgrade pip
-    $VENV_NAME/bin/python -m pip install -r ./requirements.txt  # paths relative to scripts/
+# Python packages via pip
+pip install --upgrade pip
+pip install sentence-transformers==2.2.2 transformers==4.30.2 \
+            nltk==3.8.1 spacy==3.6.0 langchain>=0.0.200 tiktoken
 
-    echo "Setup complete! Virtual environment is active."
-}
+# --------------------------
+# 6️⃣ Verify FAISS
+# --------------------------
+echo "🔍 Verifying FAISS..."
+python - <<PYTHON_CHECK
+import numpy
+import faiss
+d = 384
+index = faiss.IndexFlatIP(d)
+x = numpy.random.rand(2, d).astype("float32")
+index.add(x)
+distances, indices = index.search(x, 1)
+print("✅ FAISS works! Indices:", indices)
+PYTHON_CHECK
 
-# -----------------------------
-# Function: activate
-# -----------------------------
-activate_venv() {
-    if [ -d "$VENV_NAME" ]; then
-        source $VENV_NAME/bin/activate
-        echo "Activated virtual environment '$VENV_NAME'"
-    else
-        echo "Virtual environment '$VENV_NAME' does not exist. Run './manage_venv.sh setup' first."
-    fi
-}
-
-# -----------------------------
-# Function: deactivate
-# -----------------------------
-deactivate_venv() {
-    deactivate 2>/dev/null || echo "No virtual environment is active."
-    echo "Virtual environment deactivated."
-}
-
-# -----------------------------
-# Main
-# -----------------------------
-case "$1" in
-    setup)
-        setup_venv
-        ;;
-    activate)
-        activate_venv
-        ;;
-    deactivate)
-        deactivate_venv
-        ;;
-    *)
-        echo "Usage: $0 {setup|activate|deactivate}"
-        exit 1
-        ;;
-esac
+# --------------------------
+# 7️⃣ Final instructions
+# --------------------------
+echo "🎉 Setup complete!"
+echo "💡 To activate environment anytime:"
+echo "   conda activate $ENV_NAME"
+echo "💡 Run your build_index.py and test_query.py scripts now."

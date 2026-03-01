@@ -1,0 +1,22 @@
+# Python virtual environment
+venv_mvp_semsearch/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables / cache
+*.env
+*.venv
+.env/
+.venv/
+
+# Jupyter / IPython
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
