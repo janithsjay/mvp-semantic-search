@@ -1,0 +1,18 @@
+[
+  {
+    "chunk_id": "sample_s0_c0",
+    "doc_id": "sample",
+    "section_title": "Title",
+    "section_index": 0,
+    "chunk_index": 0,
+    "token_count": 19
+  },
+  {
+    "chunk_id": "sample_s1_c0",
+    "doc_id": "sample",
+    "section_title": "Section 1",
+    "section_index": 1,
+    "chunk_index": 0,
+    "token_count": 22
+  }
+]

@@ -1,0 +1,21 @@
+numpy==1.25.0
+sentence-transformers==2.2.2
+transformers==4.30.2
+huggingface-hub>=0.14.1,<1.0
+faiss-cpu==1.13.2
+nltk==3.8.1
+spacy==3.6.0
+langchain>=0.0.200
+tiktoken
+
+
+# # Example with pyenv
+# pyenv install 3.10.12
+# pyenv virtualenv 3.10.12 venv_mvp_semsearch_py310
+# pyenv activate venv_mvp_semsearch_py310
+
+# # Install packages in correct order
+# pip install numpy==1.25.0
+# pip install faiss-cpu==1.13.2
+# pip install sentence-transformers==2.2.2 transformers==4.30.2
+# pip install nltk==3.8.1 spacy==3.6.0 langchain>=0.0.200 tiktoken
