@@ -1,0 +1,2 @@
+# Algorithms
+Supervised learning, unsupervised learning, and reinforcement learning are the main types.

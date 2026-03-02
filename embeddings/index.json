@@ -1,4 +1,19 @@
 {
   "sample_s0_c0": 0,
-  "sample_s1_c0": 1
+  "sample_s1_c0": 1,
+  "doc_1_s0_c0": 2,
+  "doc_1_s1_c0": 3,
+  "doc_1_s2_c0": 4,
+  "doc_0_s0_c0": 5,
+  "doc_0_s1_c0": 6,
+  "doc_0_s2_c0": 7,
+  "doc_4_s0_c0": 8,
+  "doc_4_s1_c0": 9,
+  "doc_4_s2_c0": 10,
+  "doc_3_s0_c0": 11,
+  "doc_3_s1_c0": 12,
+  "doc_3_s2_c0": 13,
+  "doc_2_s0_c0": 14,
+  "doc_2_s1_c0": 15,
+  "doc_2_s2_c0": 16
 }

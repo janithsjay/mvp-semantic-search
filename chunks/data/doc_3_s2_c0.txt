@@ -1,0 +1,2 @@
+# Tools
+Libraries like spaCy, NLTK, and Hugging Face Transformers are widely used in NLP projects.

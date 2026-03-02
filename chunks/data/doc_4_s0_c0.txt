@@ -1,0 +1,2 @@
+# Data Science Workflow
+Data science involves collecting, cleaning, analyzing, and visualizing data to make decisions.

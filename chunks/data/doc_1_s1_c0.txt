@@ -1,0 +1,2 @@
+# Syntax
+Python uses indentation to define code blocks instead of braces.

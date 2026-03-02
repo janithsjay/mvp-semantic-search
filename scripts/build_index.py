@@ -13,11 +13,11 @@ import numpy as np
 import faiss
 
 # --- Paths ---
-EMBEDDINGS_DIR = "../embeddings"  # adjust if running from scripts/
+EMBEDDINGS_DIR = "./embeddings"  # adjust if running from scripts/
 EMBEDDINGS_FILE = os.path.join(EMBEDDINGS_DIR, "embeddings.npy")
 INDEX_JSON_FILE = os.path.join(EMBEDDINGS_DIR, "index.json")
 
-INDEX_DIR = "../index"
+INDEX_DIR = "./index"
 INDEX_PATH = os.path.join(INDEX_DIR, "faiss_index.bin")
 CHUNK_META_PATH = os.path.join(INDEX_DIR, "chunk_metadata.json")
 

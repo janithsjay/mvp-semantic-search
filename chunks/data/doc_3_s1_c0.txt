@@ -1,0 +1,2 @@
+# Techniques
+Text classification, sentiment analysis, and named entity recognition are popular NLP techniques.

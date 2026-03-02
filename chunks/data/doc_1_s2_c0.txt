@@ -1,0 +1,2 @@
+# Libraries
+Popular Python libraries include NumPy, Pandas, and Matplotlib.

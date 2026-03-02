@@ -1,61 +1,80 @@
 #!/bin/bash
 # ==========================================
-# MVP Semantic Search Setup Script (Conda / Miniforge)
+# MVP Semantic Search Setup Script (Safe pip + venv)
 # ==========================================
 
 # --------------------------
 # Configuration
 # --------------------------
 ENV_NAME="mvp_semsearch"
-PYTHON_VERSION="3.11"
 PROJECT_DIR="$HOME/Projects/GIT/mvp-semantic-search"
+PYTHON_CMD="python3.11"   # Make sure Python 3.11 is installed
+ESSENTIAL_PKGS="numpy faiss-cpu sentence-transformers tiktoken streamlit"
+OPTIONAL_PKGS="torch torchvision transformers scikit-learn jinja2 huggingface-hub"
+MIN_DISK_GB=5
 
 # --------------------------
-# 1️⃣ Check Conda / Miniforge
+# 1️⃣ Check Python
 # --------------------------
-if ! command -v conda &>/dev/null; then
-    echo "❌ Conda/Miniforge not found. Please install it first: https://github.com/conda-forge/miniforge"
+if ! command -v $PYTHON_CMD &>/dev/null; then
+    echo "❌ Python 3.11 not found."
+    echo "👉 Install it using: brew install python@3.11"
     exit 1
 fi
-echo "✅ Conda detected"
+echo "✅ Python detected: $($PYTHON_CMD --version)"
 
 # --------------------------
-# 2️⃣ Remove old environment if exists
+# 2️⃣ Check free disk space
 # --------------------------
-if conda env list | grep -q "^$ENV_NAME"; then
-    echo "🗑 Removing old environment $ENV_NAME..."
-    conda remove -y -n $ENV_NAME --all
+FREE_GB=$(df -BG "$PROJECT_DIR" | tail -1 | awk '{print $4}' | sed 's/G//')
+if [ "$FREE_GB" -lt "$MIN_DISK_GB" ]; then
+    echo "❌ Not enough free disk space ($FREE_GB GB). Need at least $MIN_DISK_GB GB."
+    exit 1
+fi
+echo "✅ Free disk space: $FREE_GB GB"
+
+# --------------------------
+# 3️⃣ Remove old virtual environment if exists
+# --------------------------
+if [ -d "$PROJECT_DIR/$ENV_NAME" ]; then
+    echo "🗑 Removing old virtual environment..."
+    rm -rf "$PROJECT_DIR/$ENV_NAME"
 fi
 
 # --------------------------
-# 3️⃣ Create new Conda environment
+# 4️⃣ Create new virtual environment
 # --------------------------
-echo "🐍 Creating new Conda environment $ENV_NAME with Python $PYTHON_VERSION..."
-conda create -y -n $ENV_NAME python=$PYTHON_VERSION
+echo "🐍 Creating virtual environment..."
+cd "$PROJECT_DIR" || exit
+$PYTHON_CMD -m venv $ENV_NAME
 
 # --------------------------
-# 4️⃣ Activate environment
+# 5️⃣ Activate environment
 # --------------------------
 echo "🔹 Activating environment..."
-source "$(conda info --base)/etc/profile.d/conda.sh"
-conda activate $ENV_NAME
+source "$PROJECT_DIR/$ENV_NAME/bin/activate"
 
 # --------------------------
-# 5️⃣ Install dependencies
+# 6️⃣ Upgrade pip
 # --------------------------
-echo "📦 Installing FAISS + dependencies..."
-# FAISS CPU via conda-forge (ensures matching binaries for macOS)
-conda install -y -c conda-forge faiss-cpu numpy
-
-# Python packages via pip
-pip install --upgrade pip
-pip install sentence-transformers==2.2.2 transformers==4.30.2 \
-            nltk==3.8.1 spacy==3.6.0 langchain>=0.0.200 tiktoken
+pip install --upgrade pip wheel setuptools
 
 # --------------------------
-# 6️⃣ Verify FAISS
+# 7️⃣ Install essential packages first
 # --------------------------
-echo "🔍 Verifying FAISS..."
+echo "📦 Installing essential packages..."
+pip install $ESSENTIAL_PKGS || { echo "❌ Failed installing essentials"; exit 1; }
+
+# --------------------------
+# 8️⃣ Install optional packages
+# --------------------------
+echo "📦 Installing optional packages (may take space/time)..."
+pip install $OPTIONAL_PKGS || echo "⚠️ Some optional packages failed to install, you can retry later"
+
+# --------------------------
+# 9️⃣ Verify numpy & FAISS
+# --------------------------
+echo "🔍 Verifying FAISS and numpy..."
 python - <<PYTHON_CHECK
 import numpy
 import faiss
@@ -64,13 +83,13 @@ index = faiss.IndexFlatIP(d)
 x = numpy.random.rand(2, d).astype("float32")
 index.add(x)
 distances, indices = index.search(x, 1)
-print("✅ FAISS works! Indices:", indices)
+print("✅ numpy and FAISS loaded successfully! Indices:", indices)
 PYTHON_CHECK
 
 # --------------------------
-# 7️⃣ Final instructions
+# 10️⃣ Final instructions
 # --------------------------
 echo "🎉 Setup complete!"
 echo "💡 To activate environment anytime:"
-echo "   conda activate $ENV_NAME"
+echo "   source $PROJECT_DIR/$ENV_NAME/bin/activate"
 echo "💡 Run your build_index.py and test_query.py scripts now."

@@ -14,5 +14,125 @@
     "section_index": 1,
     "chunk_index": 0,
     "token_count": 22
+  },
+  {
+    "chunk_id": "doc_1_s0_c0",
+    "doc_id": "doc_1",
+    "section_title": "Python Basics",
+    "section_index": 0,
+    "chunk_index": 0,
+    "token_count": 19
+  },
+  {
+    "chunk_id": "doc_1_s1_c0",
+    "doc_id": "doc_1",
+    "section_title": "Syntax",
+    "section_index": 1,
+    "chunk_index": 0,
+    "token_count": 12
+  },
+  {
+    "chunk_id": "doc_1_s2_c0",
+    "doc_id": "doc_1",
+    "section_title": "Libraries",
+    "section_index": 2,
+    "chunk_index": 0,
+    "token_count": 10
+  },
+  {
+    "chunk_id": "doc_0_s0_c0",
+    "doc_id": "doc_0",
+    "section_title": "Introduction to AI",
+    "section_index": 0,
+    "chunk_index": 0,
+    "token_count": 19
+  },
+  {
+    "chunk_id": "doc_0_s1_c0",
+    "doc_id": "doc_0",
+    "section_title": "Applications",
+    "section_index": 1,
+    "chunk_index": 0,
+    "token_count": 13
+  },
+  {
+    "chunk_id": "doc_0_s2_c0",
+    "doc_id": "doc_0",
+    "section_title": "Future Trends",
+    "section_index": 2,
+    "chunk_index": 0,
+    "token_count": 14
+  },
+  {
+    "chunk_id": "doc_4_s0_c0",
+    "doc_id": "doc_4",
+    "section_title": "Data Science Workflow",
+    "section_index": 0,
+    "chunk_index": 0,
+    "token_count": 16
+  },
+  {
+    "chunk_id": "doc_4_s1_c0",
+    "doc_id": "doc_4",
+    "section_title": "Steps",
+    "section_index": 1,
+    "chunk_index": 0,
+    "token_count": 13
+  },
+  {
+    "chunk_id": "doc_4_s2_c0",
+    "doc_id": "doc_4",
+    "section_title": "Tools",
+    "section_index": 2,
+    "chunk_index": 0,
+    "token_count": 13
+  },
+  {
+    "chunk_id": "doc_3_s0_c0",
+    "doc_id": "doc_3",
+    "section_title": "Natural Language Processing",
+    "section_index": 0,
+    "chunk_index": 0,
+    "token_count": 20
+  },
+  {
+    "chunk_id": "doc_3_s1_c0",
+    "doc_id": "doc_3",
+    "section_title": "Techniques",
+    "section_index": 1,
+    "chunk_index": 0,
+    "token_count": 14
+  },
+  {
+    "chunk_id": "doc_3_s2_c0",
+    "doc_id": "doc_3",
+    "section_title": "Tools",
+    "section_index": 2,
+    "chunk_index": 0,
+    "token_count": 16
+  },
+  {
+    "chunk_id": "doc_2_s0_c0",
+    "doc_id": "doc_2",
+    "section_title": "Machine Learning Overview",
+    "section_index": 0,
+    "chunk_index": 0,
+    "token_count": 19
+  },
+  {
+    "chunk_id": "doc_2_s1_c0",
+    "doc_id": "doc_2",
+    "section_title": "Algorithms",
+    "section_index": 1,
+    "chunk_index": 0,
+    "token_count": 13
+  },
+  {
+    "chunk_id": "doc_2_s2_c0",
+    "doc_id": "doc_2",
+    "section_title": "Use Cases",
+    "section_index": 2,
+    "chunk_index": 0,
+    "token_count": 13
   }
 ]

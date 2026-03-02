@@ -1,0 +1,2 @@
+# Python Basics
+Python is a versatile programming language that is widely used for web development and data science.

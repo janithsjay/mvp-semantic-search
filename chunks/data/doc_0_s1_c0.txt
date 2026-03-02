@@ -1,0 +1,2 @@
+# Applications
+AI is used in robotics, natural language processing, and autonomous vehicles.

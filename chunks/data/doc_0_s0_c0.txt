@@ -1,0 +1,2 @@
+# Introduction to AI
+Artificial intelligence (AI) is the simulation of human intelligence processes by machines, especially computer systems.

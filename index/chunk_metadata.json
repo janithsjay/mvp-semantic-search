@@ -1,0 +1,70 @@
+[
+  {
+    "chunk_id": "sample_s0_c0",
+    "row_index": 0
+  },
+  {
+    "chunk_id": "sample_s1_c0",
+    "row_index": 1
+  },
+  {
+    "chunk_id": "doc_1_s0_c0",
+    "row_index": 2
+  },
+  {
+    "chunk_id": "doc_1_s1_c0",
+    "row_index": 3
+  },
+  {
+    "chunk_id": "doc_1_s2_c0",
+    "row_index": 4
+  },
+  {
+    "chunk_id": "doc_0_s0_c0",
+    "row_index": 5
+  },
+  {
+    "chunk_id": "doc_0_s1_c0",
+    "row_index": 6
+  },
+  {
+    "chunk_id": "doc_0_s2_c0",
+    "row_index": 7
+  },
+  {
+    "chunk_id": "doc_4_s0_c0",
+    "row_index": 8
+  },
+  {
+    "chunk_id": "doc_4_s1_c0",
+    "row_index": 9
+  },
+  {
+    "chunk_id": "doc_4_s2_c0",
+    "row_index": 10
+  },
+  {
+    "chunk_id": "doc_3_s0_c0",
+    "row_index": 11
+  },
+  {
+    "chunk_id": "doc_3_s1_c0",
+    "row_index": 12
+  },
+  {
+    "chunk_id": "doc_3_s2_c0",
+    "row_index": 13
+  },
+  {
+    "chunk_id": "doc_2_s0_c0",
+    "row_index": 14
+  },
+  {
+    "chunk_id": "doc_2_s1_c0",
+    "row_index": 15
+  },
+  {
+    "chunk_id": "doc_2_s2_c0",
+    "row_index": 16
+  }
+]

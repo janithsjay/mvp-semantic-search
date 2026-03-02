@@ -1,0 +1,2 @@
+# Tools
+Python, R, SQL, and Tableau are common tools for data science.
